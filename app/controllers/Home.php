@@ -1,9 +1,10 @@
 <?php 
+    // require_once __DIR__ . "./app/core/controllers.php";
     require_once "./app/core/controllers.php";
-
-    class Home{
+    class Home extends controllers{
+        // default method call in class home 
         function Sayhi($arr_para)
-        {
+        { 
             // if(!empty($arr_para) > 0)
             // {
             //     foreach($arr_para as $a)
@@ -13,12 +14,13 @@
             //     }
             // }
 
-            $student = model("Student"); // call in controller of core
+            $model_student = $this->model("Student"); // call in controller of core
 
-            print_r($student->GetSV());
+            print_r($model_student->GetSV());
             
             echo "<br/> say hi in Home" . "<br/>";
         }
+        
         function Show($arr_para)
         {
             // if(!empty($arr_para) > 0)
@@ -29,11 +31,18 @@
 
             //     }
             // }
-            $student = model("Student"); // call in controller of core
+            // $model_student = $this->model("Student"); // call in controller of core
 
-            print_r($student->Get_values_test());
+            // print_r($model_student->Get_values_test());
+            // $this->view("home");
+            // $this->view("home", $arr_para);
+            $model = $this->model("Student");
 
-            echo "<br/> show in Home" . "<br/>";
+            $arr = $model->Get_values_test();
+            
+            $this->view("views", $arr, $arr_para);
+
+            // echo "<br/> show in Home" . "<br/>";
         }
     }
 ?>

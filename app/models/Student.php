@@ -6,7 +6,13 @@
         }
         public function Get_values_test()
         {
-            return "This is test values";
+            $arr = array(
+                'Name' =>'Nguyen Van A',
+                'Age' => 19,
+                'Gender' => 'male'
+            );
+            
+            return $arr;
         }
     }
 ?>
