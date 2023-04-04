@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel= "stylesheet" href="./public/css/css.css" type="text/css">
+    <link rel= "stylesheet" href="<?=$root='http://'.$_SERVER['HTTP_HOST'];
+?>/public/css/css.css" type="text/css">
     <!-- <style>
         div.notfound{
     color: red;

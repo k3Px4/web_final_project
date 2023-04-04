@@ -1,70 +1,69 @@
 ﻿<?php
     class App{
-        protected $controller = "Home";
+        protected $controller = "NotFound";
         protected $action = "Show";
-        protected $paramas =[];
+        protected $paramas = array(0=> 'notfound');
 
 
         function __construct()
         {
-           $arr = $this->URL();
-           $check_exists = 1;
-            //print_r($arr);
+            $arr = $this->URL();
+
+            $check_exists = 1;
+
+          
+         
+            $par = array(0=> 'notfound');
+
             if(count($arr) > 0)
             {
                  // xử lý controller:
                 if(file_exists("./app/controllers/".$arr[0].".php")) //"http://localhost/MVC/Home/a" arr -> [Home, a] => arr[0] = Home
                 {
-                    //echo "ok";
-                    $this->controller = $arr[0];
+                    $contr = $arr[0];
+                    unset($arr[0]);
+                    require_once "./app/controllers/". $contr.".php";
+                    if(isset($arr[1]))
+                    {
+                        if(method_exists( $contr, $arr[1])) 
+                        {
+                            $act = $arr[1];
+                        }
+                        unset($arr[1]);
+                        $par = $arr ? array_values($arr) : [];
+                    }
+                    else // khong truyen action
+                    {
+                        $act = "show";
+                        $par=[];
+                    }
                    
-                    
+                    //echo "ok";
+                   
                 }
-                else{
-                    $check_exists = 0;
-                  
-                 
+                if(isset($contr) && isset( $act))
+                {
+                    $this->controller = $contr;
+                    $this->action= $act;
+                    $this->paramas = $par? array_values($arr) : [];
                 }
-                unset($arr[0]);
-            
-                require_once "./app/controllers/". $this->controller.".php";
-           
-                print_r($arr);
-                echo "<br/>";
+                else
+                {
+                    require_once "./app/controllers/NotFound.php";
+                }
+               
                 
-                //xu ly action
-                if(isset($arr[1]))
-                {
-                    if(method_exists($this->controller, $arr[1])) // check method exits in controller
-                    {   
-                        echo (($arr[1]));
-                        $this->action = $arr[1];
-                    }
-                    else{
-                        $check_exists = 0;
-                    }
-                  
-                    // else
-                    // {
-                    //     header("Location: ./mvc/views/notfound.html");
-                    //     exit();
-                    // }
-                    unset($arr[1]);
-    
-                }
-                if(count($arr) > 0 && $check_exists === 1)
-                {
-                    $this->paramas = array_values($arr);
-                }
-                else if($check_exists !== 1)
-                {
-                    $this->paramas = array("notfound");
-                }
+
+                
+               
                 // xu ly params
                 
             }
             else // neu khonh nhap gi tren url
             {
+                $this->controller = "Home";
+                $this->action = "Show";
+                $this->paramas = array(0=> 'home');
                 require_once "./app/controllers/Home.php";
             }
           
@@ -72,6 +71,8 @@
             $control = new $this->controller; // create new object controller
             // echo $this->action . "<br/>" . $this->controller;
         //    $this->controller = new $this->controller; // create new object controller
+            print_r($this->controller);
+            print_r($this->action);
             print_r($this->paramas);
            call_user_func_array(array($control, $this->action), array($this->paramas));// call function in controller:(callback, array aguments)
            //https://www.php.net/manual/en/function.call-user-func-array.php

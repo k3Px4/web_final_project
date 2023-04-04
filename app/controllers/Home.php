@@ -39,8 +39,12 @@
             $model = $this->model("Student");
 
             $arr = $model->Get_values_test();
-            
-            $this->view("views", $arr, $arr_para);
+            $para = $arr_para;
+            if(count($arr_para) < 1)
+            {
+                $para = array(0=> 'home');
+            }
+            $this->view("views", $arr, $para);
 
             // echo "<br/> show in Home" . "<br/>";
         }

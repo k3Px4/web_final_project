@@ -4,4 +4,6 @@
             <strong>404</strong>
             <p>PAGE NOT FOUND</p>
         </h1>
-</div>
+</div><?php 
+    
+?>

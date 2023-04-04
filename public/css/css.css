@@ -2,11 +2,12 @@ div.notfound{
     color: red;
 }
 div.a{
-    background-color: pink;
+    background-color: rgb(51, 4, 112);
     margin: 10px;
     text-align: center;
     padding: 10px;
+    color: rgb(9, 248, 49);
 }
 div.content{
-    color: white;
+    color: rgb(9, 248, 49);
 }
